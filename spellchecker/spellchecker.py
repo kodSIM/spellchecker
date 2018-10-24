@@ -27,7 +27,7 @@ def cli(path, dict_path):
     This command check YAML files from PATH. For checking used dictionary from DICT_PATH.
     """
     errors = spell_check(path, dict_path)
-    print(f'\n\tWas found {errors} errors')
+    print('\n\tWas found {} errors'.format(errors))
     sys.exit(errors)
 
 
@@ -71,7 +71,7 @@ def speller(file_path, dictionary):
                         or re.sub(REPLACE, '', prep_word).isdigit():
                     continue
                 else:
-                    print(f'{file_path}:{s_count}: Word "{word}" is missing')
+                    print('{}:{}: Word "{}" is missing'.format(file_path, s_count, word))
                     error_count += 1
     return error_count
 
