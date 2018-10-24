@@ -46,16 +46,13 @@ def spell_check(path, dict_path):
     else:
         file_list = [path_for_check]
     dictionary = load_dictionary(dict_path)
-    error_count = 0
-    for file_name in file_list:
-        error_count += speller(file_name, dictionary)
-    return error_count
+    return sum(speller(file_name, dictionary) for file_name in file_list)
 
 
 def speller(file_path, dictionary):
     """Spell checker for text.
 
-    :param str file_path: Path to file.
+    :param pathlib.Path file_path: Path to file.
     :param str dictionary: Dictionary.
 
     :return: Number of errors.
