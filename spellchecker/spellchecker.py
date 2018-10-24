@@ -23,7 +23,10 @@ REPLACE = r'[\.\-_]'
 @click.argument('path', type=click.Path(exists=True))
 @click.argument('dict_path', type=click.Path(exists=True, dir_okay=False))
 def cli(path, dict_path):
-    """Command-line interface for YAMLchecker."""
+    """Command-line interface for YAMLchecker.
+
+    This command check YAML files from PATH. For checking used dictionary from DICT_PATH.
+    """
     sys.exit(spell_check(path, dict_path))
 
 
