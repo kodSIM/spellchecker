@@ -65,7 +65,7 @@ def speller(file_path, dictionary):
         text = file.read()
     error_count = 0
     for s_count, s in enumerate(text.split('\n'), 1):
-        for word in nltk.word_tokenize(s):
+        for word in nltk.word_tokenize(s.replace('/', ' ')):
             word = word.strip()
             word = re.sub(STARTS_ENDS, '', word)
             prep_word = word.lower()
