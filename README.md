@@ -1,6 +1,6 @@
 # Script for spell checking
 
-![Check PEP8](https://travis-ci.org/kodSIM/spellchecker.svg?branch=master)
+[![Check PEP8](https://travis-ci.org/kodSIM/spellchecker.svg?branch=master)](https://travis-ci.org/kodSIM/spellchecker)
 
 For run script use format:
 
