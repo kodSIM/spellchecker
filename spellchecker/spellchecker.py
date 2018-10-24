@@ -1,7 +1,6 @@
 """Module for execute spell checking."""
-import os
-import os.path
 import re
+from pathlib import Path
 import sys
 
 import click
@@ -41,19 +40,15 @@ def spell_check(path, dict_path):
     :return: Number of errors.
     :rtype: int
     """
-    if os.path.isdir(path):
-        file_list = os.listdir(path)
-        file_list = filter(lambda x: x.endswith(('.yaml', '.yml')), file_list)
+    path_for_check = Path(path)
+    if path_for_check.is_dir():
+        file_list = list(path_for_check.glob('**/*.yaml')) + list(path_for_check.glob('**/*.yml'))
     else:
-        file_list = [path]
+        file_list = [path_for_check]
     dictionary = load_dictionary(dict_path)
     error_count = 0
     for file_name in file_list:
-        if os.path.isdir(path):
-            full_path = os.path.join(path, file_name)
-        else:
-            full_path = file_name
-        error_count += speller(full_path, dictionary)
+        error_count += speller(file_name, dictionary)
     return error_count
 
 
