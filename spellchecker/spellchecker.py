@@ -8,8 +8,8 @@ import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
-from nltk.corpus import wordnet as wn
-from nltk.corpus import stopwords
+from nltk.corpus import wordnet as wn   # noqa
+from nltk.corpus import stopwords   # noqa
 
 
 STOP_WORDS = set(stopwords.words('english'))
