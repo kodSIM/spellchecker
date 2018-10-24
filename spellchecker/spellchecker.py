@@ -27,7 +27,9 @@ def cli(path, dict_path):
 
     This command check YAML files from PATH. For checking used dictionary from DICT_PATH.
     """
-    sys.exit(spell_check(path, dict_path))
+    errors = spell_check(path, dict_path)
+    print(f'\n\tWas found {errors} errors')
+    sys.exit(errors)
 
 
 def spell_check(path, dict_path):
