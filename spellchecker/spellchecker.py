@@ -1,4 +1,5 @@
 """Module for execute spell checking."""
+from itertools import chain
 import re
 from pathlib import Path
 import sys
@@ -42,7 +43,7 @@ def spell_check(path, dict_path):
     """
     path_for_check = Path(path)
     if path_for_check.is_dir():
-        file_list = list(path_for_check.glob('**/*.yaml')) + list(path_for_check.glob('**/*.yml'))
+        file_list = chain(path_for_check.glob('**/*.yaml'), path_for_check.glob('**/*.yml'))
     else:
         file_list = [path_for_check]
     dictionary = load_dictionary(dict_path)
