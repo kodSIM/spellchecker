@@ -1,13 +1,19 @@
 language: python
 python:
+    - "3.4"
+    - "3.5"
     - "3.6"
 install: pip install flake8
 script: flake8 --max-line-length=120 spellchecker
-deploy:
-    provider: pypi
-    user: kodSIM
-    password:
-      secure: NQL9M3LP/41mKlxWKtyPk69X0xlnSSLwfLMLutxxDC8viQfUoXYNpFBw2g4p8dV/E+HyzGk+kGzE7vjsWBXXCBJa5W1MKPKztOfDd6M0dLWe3jZR2GIQbjfuQmBtFyF+sMuiUf2DDUAB2kr+5FrGvSFZ5iQ5SVveCPtI95Ip09qlfwAHOX72wrZR+Of5HdRzXgGQkvERj8bVZ1ZKLf+LRlmVS7sXHJ1D7q6t9pJTb4X4eZlX7fegmleM8G1awDehlLpTpaG4pIGR1p/VZ7mnZBltvIJRfZS2m1lncRhAYwoV8mQYQx9rEc4IN5mTGqovI227VIwdm/3U4AGiBYP0BH7M77WEkzRkxrSWSWfjFdOx6E7mASVBA1x4TeYSXEsbpkLXlaB9Lm/LF9uCOfVnVsSIoWHytAHvjzRyjsiC3rrmHN5dxWk6s3gI7CESMAjskhfBTKohjv9DxFK1XZVuAp4U1V+aTTSvXK3vsCDizbBEaUy2Q6glxmev1ZiJN3n0Hut2iAKGwUw7KBuip3qW8bYJ5pu++i3LbXG99k20Gxiyy1FTI9dFNCanhsbMbTO0kjQmIer6a9TB7DdIRa/VW144Mfr7pFCjsZEG5WUydBuuSgipfxj6an0RSDOY7GdKZFSvXv0lEyWfw4nsYr666Kzu+bZZH8KCbxAHOCINqUQ=
-    distributions: "sdist bdist_wheel"
-    on:
-      branch: master
+jobs:
+    include:
+        - stage: deploy
+          script: echo "Build package and upload to pypi.org"
+          deploy:
+              provider: pypi
+              user: kodSIM
+              password:
+                secure: NQL9M3LP/41mKlxWKtyPk69X0xlnSSLwfLMLutxxDC8viQfUoXYNpFBw2g4p8dV/E+HyzGk+kGzE7vjsWBXXCBJa5W1MKPKztOfDd6M0dLWe3jZR2GIQbjfuQmBtFyF+sMuiUf2DDUAB2kr+5FrGvSFZ5iQ5SVveCPtI95Ip09qlfwAHOX72wrZR+Of5HdRzXgGQkvERj8bVZ1ZKLf+LRlmVS7sXHJ1D7q6t9pJTb4X4eZlX7fegmleM8G1awDehlLpTpaG4pIGR1p/VZ7mnZBltvIJRfZS2m1lncRhAYwoV8mQYQx9rEc4IN5mTGqovI227VIwdm/3U4AGiBYP0BH7M77WEkzRkxrSWSWfjFdOx6E7mASVBA1x4TeYSXEsbpkLXlaB9Lm/LF9uCOfVnVsSIoWHytAHvjzRyjsiC3rrmHN5dxWk6s3gI7CESMAjskhfBTKohjv9DxFK1XZVuAp4U1V+aTTSvXK3vsCDizbBEaUy2Q6glxmev1ZiJN3n0Hut2iAKGwUw7KBuip3qW8bYJ5pu++i3LbXG99k20Gxiyy1FTI9dFNCanhsbMbTO0kjQmIer6a9TB7DdIRa/VW144Mfr7pFCjsZEG5WUydBuuSgipfxj6an0RSDOY7GdKZFSvXv0lEyWfw4nsYr666Kzu+bZZH8KCbxAHOCINqUQ=
+              distributions: "sdist bdist_wheel"
+              on:
+                branch: master
