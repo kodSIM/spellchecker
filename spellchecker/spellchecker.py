@@ -87,7 +87,7 @@ def load_dictionary(path):
     """
     with open(path) as file:
         text = file.read()
-    return text.replace('\n', '|').replace('\\', '\\\\')
+    return re.compile(text.replace('\n', '|'))
 
 
 if __name__ == '__main__':
