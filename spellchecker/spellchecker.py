@@ -59,7 +59,7 @@ def speller(file_path, dictionary):
     :return: Number of errors.
     :rtype: int
     """
-    with open(file_path) as file:
+    with open(str(file_path)) as file:
         text = file.read()
     error_count = 0
     for s_count, s in enumerate(text.split('\n'), 1):
