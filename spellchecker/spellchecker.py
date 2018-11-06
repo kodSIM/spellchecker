@@ -68,7 +68,7 @@ def speller(file_path, dictionary):
             word = re.sub(STARTS_ENDS, '', word)
             prep_word = word.lower()
             if not wn.synsets(prep_word) and prep_word is not '':
-                if (prep_word in STOP_WORDS) or (prep_word in PUNKT) or re.search(dictionary, prep_word)        \
+                if (prep_word in STOP_WORDS) or (prep_word in PUNKT) or re.search(dictionary, prep_word) \
                         or re.sub(REPLACE, '', prep_word).isdigit():
                     continue
                 else:

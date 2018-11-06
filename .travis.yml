@@ -1,12 +1,33 @@
 language: python
-python:
-    - "3.4"
-    - "3.5"
-    - "3.6"
-install: pip install flake8
-script: flake8 --max-line-length=120 spellchecker
 jobs:
     include:
+        - stage: test
+          python: "3.6"
+          install: pip install flake8
+          script:
+              - echo "Running linting"
+              - flake8 --max-line-length=120 spellchecker
+        - stage: unittest
+          python: "3.4"
+          install:
+              - pip install -r requirements.txt
+              - pip install .
+          script:
+              - echo "Running unit tests"
+              - pytest -v
+        - stage: unittest
+          python: "3.5"
+          install:
+              - pip install -r requirements.txt
+              - pip install .
+          script:
+              - echo "Running unit tests"
+              - pytest -v
+        - stage: unittest
+          python: "3.6"
+          install:
+              - pip install -r requirements.txt
+              - pip install .
         - stage: deploy
           script: echo "Build package and upload to pypi.org"
           deploy:
