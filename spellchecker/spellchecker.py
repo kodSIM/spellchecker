@@ -54,7 +54,7 @@ def speller(file_path, dictionary):
     """Spell checker for text.
 
     :param pathlib.Path file_path: Path to file.
-    :param str dictionary: Dictionary.
+    :param _sre.SRE_Pattern dictionary: Dictionary.
 
     :return: Number of errors.
     :rtype: int

@@ -7,12 +7,17 @@ import pytest
 import spellchecker
 
 
-TRUTH_FILE = """Description: description.
+TRUTH_FILE = 'truth.yaml'
+FAIL_FILE = 'fail.yml'
+DICT_FILE = 'dictionary.txt'
+
+
+TRUTH_YAML = """Description: description.
 Requirements: requirements id.
 Steps: description and expected result for test steps.
 """
 
-FAIL_FILE = """Decription: description.
+FAIL_YAML = """Decription: description.
 Requirements: reqirements id.
 Steps: description and expected result for test steps.
 """
@@ -20,42 +25,64 @@ Steps: description and expected result for test steps.
 DICTONARY = r'^req$'
 
 
-def create_dictionary(tmpdir):
-    file = tmpdir.join('dictionary.txt')
-    file.write(DICTONARY)
-    return str(file)
+@pytest.fixture(autouse=True)
+def setup(tmpdir):
+    """Setup for unit tests.
 
-
-def create_truth_file(tmpdir):
-    file = tmpdir.join('file.yml')
-    file.write(TRUTH_FILE)
-    return str(file)
-
-
-def create_fail_file(tmpdir):
-    file = tmpdir.join('file.yml')
-    file.write(FAIL_FILE)
-    return str(file)
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    truth_file = tmpdir.join(TRUTH_FILE)
+    truth_file.write(TRUTH_YAML)
+    fail_file = tmpdir.join(FAIL_FILE)
+    fail_file.write(FAIL_YAML)
+    dictionary = tmpdir.join(DICT_FILE)
+    dictionary.write(DICTONARY)
 
 
 def test_truth_file(tmpdir):
-    file = create_truth_file(tmpdir)
-    dictionary = create_dictionary(tmpdir)
+    """Test for truth file.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    file = str(tmpdir.join(TRUTH_FILE))
+    dictionary = str(tmpdir.join(DICT_FILE))
     assert spellchecker.spell_check(file, dictionary) == 0
 
 
 def test_fail_file(tmpdir):
-    file = create_fail_file(tmpdir)
-    dictionary = create_dictionary(tmpdir)
+    """Test for fail file.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    file = str(tmpdir.join(FAIL_FILE))
+    dictionary = str(tmpdir.join(DICT_FILE))
     assert spellchecker.spell_check(file, dictionary) == 2
 
 
 def test_speller_for_truth_file(tmpdir):
-    file = create_truth_file(tmpdir)
-    dictionary = create_dictionary(tmpdir)
+    """Test for speller function with truth file.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    file = str(tmpdir.join(TRUTH_FILE))
+    dictionary = re.compile(DICTONARY)
     assert spellchecker.spellchecker.speller(Path(file), dictionary) == 0
 
 
+def test_speller_for_fail_file(tmpdir):
+    """Test for speller function with fail file.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    file = str(tmpdir.join(FAIL_FILE))
+    dictionary = re.compile(DICTONARY)
+    assert spellchecker.spellchecker.speller(Path(file), dictionary) == 2
+
+
 def test_load_dictionary(tmpdir):
-    dictionary = create_dictionary(tmpdir)
-    assert spellchecker.spellchecker.load_dictionary(dictionary) == re.compile(r'^req$')
+    """Test for load_dictionary function.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    dictionary = str(tmpdir.join(DICT_FILE))
+    assert spellchecker.spellchecker.load_dictionary(dictionary) == re.compile(DICTONARY)
