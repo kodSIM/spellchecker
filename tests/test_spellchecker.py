@@ -10,6 +10,7 @@ import spellchecker
 TRUTH_FILE = 'truth.yaml'
 FAIL_FILE = 'fail.yml'
 DICT_FILE = 'dictionary.txt'
+DIRECTORY = 'test_cases'
 
 
 TRUTH_YAML = """Description: description.
@@ -37,6 +38,10 @@ def setup(tmpdir):
     fail_file.write(FAIL_YAML)
     dictionary = tmpdir.join(DICT_FILE)
     dictionary.write(DICTONARY)
+    subdir = tmpdir.mkdir(DIRECTORY)
+    subdir.join('file1.yaml').write(TRUTH_YAML)
+    subdir.join('file2.yml').write(FAIL_YAML)
+    subdir.join('file3.txt').write(FAIL_YAML)
 
 
 def test_truth_file(tmpdir):
@@ -57,6 +62,16 @@ def test_fail_file(tmpdir):
     file = str(tmpdir.join(FAIL_FILE))
     dictionary = str(tmpdir.join(DICT_FILE))
     assert spellchecker.spell_check(file, dictionary) == 2
+
+
+def test_directory_with_tests(tmpdir):
+    """Test spelling for directory with test cases.
+
+    :param py.local.path tmpdir: Fixture for path to temporary directory.
+    """
+    directory = str(tmpdir.join(DIRECTORY))
+    dictonary = str(tmpdir.join(DICT_FILE))
+    assert spellchecker.spell_check(directory, dictonary) == 2
 
 
 def test_speller_for_truth_file(tmpdir):
