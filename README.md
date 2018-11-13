@@ -1,6 +1,7 @@
 # Script for spell checking
 
 [![Check PEP8](https://travis-ci.org/kodSIM/spellchecker.svg?branch=master)](https://travis-ci.org/kodSIM/spellchecker)
+[![PyPI](https://img.shields.io/pypi/v/yamlspellchecker.svg)](https://pypi.org/project/yamlspellchecker/)
 
 
 This is CLI-based script for spelling in the yaml files.

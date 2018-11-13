@@ -87,7 +87,12 @@ def load_dictionary(path):
     """
     with open(path) as file:
         text = file.read()
-    return re.compile(text.replace('\n', '|'))
+    text = text.split('\n')
+    text = list(filter(bool, map(str.strip, text)))
+    text = sorted(list(set(text)))
+    if text:
+        return re.compile('|'.join(text))
+    return re.compile('!')  # TODO: Need to find of best decision.
 
 
 if __name__ == '__main__':
